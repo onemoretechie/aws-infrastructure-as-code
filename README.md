@@ -13,9 +13,25 @@ This repository is the companion codebase for the **OneMoreTechie** tutorial ser
 | Path | Purpose |
 | --- | --- |
 | [`bootstrap/`](bootstrap/) | One-time setup: remote state S3 bucket + DynamoDB lock table. Run this first. |
-| [`modules/`](modules/) | Reusable building blocks — VPC, EKS, RDS, IAM, S3, CloudFront. |
+| [`modules/`](modules/) | Reusable building blocks. See the table below. |
 | [`stacks/`](stacks/) | Environment-scoped compositions (`dev`, `prod`) that wire modules together. |
 | [`docs/`](docs/) | Architecture diagrams and tutorial companion notes. |
+
+## Modules
+
+| Module | What it builds |
+| --- | --- |
+| [`modules/vpc`](modules/vpc/) | Multi-AZ VPC with public, private, and database subnets; optional flow logs. |
+| [`modules/kms`](modules/kms/) | Customer-managed KMS key with annual rotation, alias, and a generated key policy. |
+| [`modules/s3`](modules/s3/) | Hardened S3 bucket — SSE-KMS, versioning, public access blocked, lifecycle rules. |
+| [`modules/iam`](modules/iam/) | Reusable IAM role factory with service / aws / OIDC / custom trust types. |
+| [`modules/ecr`](modules/ecr/) | ECR repo with immutable tags, scan-on-push, and lifecycle expiry. |
+| [`modules/rds`](modules/rds/) | Encrypted RDS (Postgres or MySQL) in isolated subnets with Secrets-Manager-managed master credentials. |
+| [`modules/route53`](modules/route53/) | Hosted zone (public or private) plus a map-driven record set. |
+| [`modules/acm`](modules/acm/) | ACM certificate issued via DNS-01 validation. |
+| [`modules/alb`](modules/alb/) | Application Load Balancer with default target group and HTTP→HTTPS redirect listener. |
+| [`modules/eks`](modules/eks/) | EKS cluster + managed node group + OIDC provider for IRSA. |
+| [`modules/cloudfront`](modules/cloudfront/) | CloudFront distribution in front of either an S3 origin (OAC) or an ALB. |
 
 ## Requirements
 
